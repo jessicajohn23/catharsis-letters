@@ -12,7 +12,7 @@ export default function Navbar() {
   return (
     <nav className="pixel-border bg-white dark:bg-midnightCard mx-3 mt-3 px-4 py-3 flex items-center justify-between flex-wrap gap-3">
       <Link to="/" className="font-pixel text-sm text-pink-deep">
-        CATHARSIS: freedom through feeling
+        CATHARSIS: a quiet place for unfinished thoughts and unspoken feelings.
       </Link>
 
       <div className="flex items-center gap-4 flex-wrap">
