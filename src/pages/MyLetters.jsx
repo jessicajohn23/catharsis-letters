@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { useAuth } from '../context/AuthContext'
+import { getReadableTextColor } from '../lib/constants'
 
 function timeUntil(target) {
   const diff = new Date(target) - new Date()
@@ -61,20 +62,22 @@ export default function MyLetters() {
       )}
 
       <div className="flex flex-col gap-4">
-        {letters.map((letter) => (
-          <div
+        {letters.map((letter) => {
+          const textColor = getReadableTextColor(letter.color_hex)
+          return (
+            <div 
             key={letter.id}
             className="pixel-border p-4"
             style={{ backgroundColor: letter.color_hex }}
           >
             <div className="flex justify-between items-start gap-3">
               <div>
-                <p className="font-pixel text-base text-ink/70 mb-1">
+                <p className="font-pixel text-[10px] mb-1" style={{ color: textColor, opacity: 0.7 }}>
                   TO: {letter.recipient}
-                </p>
-                <p className="font-pixel text-sm text-ink/60">
-                  {statusLabel(letter)}
-                </p>
+                  </p>
+                  <p className="font-pixel text-[9px]" style={{ color: textColor, opacity: 0.6 }}>
+                    {statusLabel(letter)}
+                    </p>
               </div>
               <div className="flex items-center gap-3">
                 {letter.status !== 'locked' && (
@@ -92,12 +95,12 @@ export default function MyLetters() {
             </div>
 
             {letter.status !== 'locked' && (
-              <p className="font-hand text-lg mt-2 text-ink whitespace-pre-wrap">
+              <p className="font-hand text-lg mt-2 whitespace-pre-wrap" style={{ color: textColor }}>
                 {letter.body}
-              </p>
+                </p>
             )}
           </div>
-        ))}
+        )})}
       </div>
     </div>
   )
