@@ -38,3 +38,12 @@ export const AVATARS = Array.from({ length: 20 }).map((_, i) => ({
     '#FDF4FF', '#3D2352', '#FFE0C7', '#C7F5E0', '#1A1025'
   ][i % 5]
 }))
+
+// Picks a readable text color (dark ink or cream) based on the letter's background.
+export function getReadableTextColor(hex) {
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+  return luminance > 0.55 ? '#3D2352' : '#FDF4FF'
+}
