@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { useAuth } from '../context/AuthContext'
+import { getReadableTextColor } from '../lib/constants'
 
 export default function LetterCard({ letter, onHeartChange }) {
   const { user } = useAuth()
   const [hearted, setHearted] = useState(letter.viewer_has_hearted)
   const [heartCount, setHeartCount] = useState(letter.heart_count)
   const [busy, setBusy] = useState(false)
+  const textColor = getReadableTextColor(letter.color_hex)
 
   const toggleHeart = async () => {
     if (!user || busy) return
@@ -48,16 +50,16 @@ export default function LetterCard({ letter, onHeartChange }) {
           {letter.stamp}
         </div>
       )}
-      <div className="font-pixel text-base text-ink/70">
+      <div className="font-pixel text-[10px]" style={{ color: textColor, opacity: 0.7 }}>
         TO: {letter.recipient || 'someone'}
       </div>
-      <p className="font-hand text-xl leading-snug text-ink whitespace-pre-wrap">
+      <p className="font-hand text-xl leading-snug whitespace-pre-wrap" style={{ color: textColor }}>
         {letter.body}
       </p>
       <div className="flex items-center justify-between mt-2">
-        <span className="font-pixel text-sm text-ink/60">
+        <span className="font-pixel text-[9px]" style={{ color: textColor, opacity: 0.6 }}>
           {new Date(letter.posted_at || letter.created_at).toLocaleDateString()}
-        </span>
+</span>
         <button
           onClick={toggleHeart}
           disabled={!user || busy}
